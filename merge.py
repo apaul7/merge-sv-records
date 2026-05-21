@@ -127,7 +127,9 @@ for record in reader:
                 alt = vcfpy.SymbolicAllele(svtype)
                 sample_calls = []
                 for sample in record.calls:
-                    gt = OrderedDict({"GT": "/".join(map(str,sample.gt_alleles))})
+                    gt_str = "/".join(map(str,sample.gt_alleles))
+                    gt_str = gt_str.replace("None", ".")
+                    gt = OrderedDict({"GT": gt_str})
                     name = sample.sample
                     sample_calls.append(vcfpy.Call(name, gt))
 
